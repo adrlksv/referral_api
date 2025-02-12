@@ -1,6 +1,5 @@
 from sqlalchemy import TIMESTAMP, Column, Integer, String, ForeignKey
 from sqlalchemy.sql import func
-from sqlalchemy.orm import relationship
 
 from src.database import Base
 
@@ -15,5 +14,5 @@ class User(Base):
     referrer_id = Column(Integer, ForeignKey("user.id"), nullable=True)
 
     registration_date = Column(TIMESTAMP(timezone=True), server_default=func.now())
-
-    referral_code = relationship("Referral", back_populates="user")
+    
+    # referrals = relationship("Referral", back_populates="user")
