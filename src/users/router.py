@@ -1,12 +1,12 @@
 from fastapi import APIRouter, Request, Response, Depends
 
-from src.users.auth import (
+from src.auth.jwt.jwt_auth import (
     authenticate_user, 
     create_access_token,
     create_refresh_token, 
     get_password_hash
 )
-from src.users.dependencies import get_current_user
+from src.auth.jwt.dependencies import get_current_user
 from src.users.schemas import SUserRegister, SUserLogin
 from src.users.dao import UserDAO
 from src.users.models import User
