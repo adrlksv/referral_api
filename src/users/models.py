@@ -14,5 +14,3 @@ class User(Base):
     referrer_id = Column(Integer, ForeignKey("user.id"), nullable=True)
 
     registration_date = Column(TIMESTAMP(timezone=True), server_default=func.now())
-    
-    # referrals = relationship("Referral", back_populates="user")

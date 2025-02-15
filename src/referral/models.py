@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, UUID, TIMESTAMP, ForeignKey
+from sqlalchemy import Column, Integer, UUID, TIMESTAMP, ForeignKey, Boolean
 from sqlalchemy.sql import func
 
 import uuid
@@ -13,6 +13,5 @@ class Referral(Base):
     referral_code = Column(UUID(as_uuid=True), unique=True, default=uuid.uuid4)
     expiry_date = Column(TIMESTAMP(timezone=True), nullable=True)
     created_at = Column(TIMESTAMP(timezone=True), server_default=func.now())
+    is_active = Column(Boolean, default=True)
     user_id = Column(Integer, ForeignKey("user.id"), nullable=False)
-
-    # user = relationship("User", back_populates="referrals")
