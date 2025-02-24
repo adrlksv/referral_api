@@ -10,15 +10,18 @@ from src.auth.oauth.router import router as oauth_router
 from src.referral.router import router as referral_router
 from src.config import settings
 
+from contextlib import asynccontextmanager
 
-app = FastAPI()
 
-
-@app.on_event("startup")
-async def startup():
+@asynccontextmanager
+async def lifespan(app: FastAPI):
     redis = aioredis.from_url(f"redis://{settings.REDIS_HOST}:{settings.REDIS_PORT}")
     FastAPICache.init(RedisBackend(redis), prefix="cache")
+    yield
+    await redis.close()
 
+
+app = FastAPI(lifespan=lifespan)
 
 origins = ["*"]
 
